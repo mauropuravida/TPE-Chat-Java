@@ -14,7 +14,7 @@ public class Client {
         try {
             Socket s = new Socket(args[0], 6663);
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-            ChatGUI gui = MainWindows.launchOrGet(new Callback(dos));
+            ChatGUI gui = MainWindows.launchOrGet(new Callback(dos),args[1]);
             new Thread(()-> {
                 try {
                     DataInputStream dis = new DataInputStream(s.getInputStream());
@@ -34,6 +34,13 @@ public class Client {
                                 user = dis.readUTF();
                                 String text = dis.readUTF();
                                 gui.addNewGeneralMsg(user, text);
+                                break;
+                                
+                            case (Protocol.PRIVATE_MSG):
+                            	String userFrom = dis.readUTF();
+                            	String userTo = dis.readUTF();
+                                String textP = dis.readUTF();
+                                gui.addNewMsg(userFrom, userTo, textP);
                                 break;
                         }
                     }

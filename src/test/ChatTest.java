@@ -18,7 +18,7 @@ public class ChatTest implements IChat {
     
     public static void main(String[] args) {
         ChatTest ct = new ChatTest();
-        ChatGUI gui = MainWindows.launchOrGet(ct);
+        ChatGUI gui = MainWindows.launchOrGet(ct,"");
         Thread t = new Thread(()->{
             try {
              Thread.sleep(5000);
@@ -66,7 +66,7 @@ public class ChatTest implements IChat {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }
-            gui.addNewMsg("pedro", "hola");
+            gui.addNewMsg("Clara","pedro", "hola");
          });
         t.start();
 
@@ -81,5 +81,4 @@ public class ChatTest implements IChat {
          });
         t.start();
     }
-
 }

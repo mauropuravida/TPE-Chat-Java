@@ -55,8 +55,16 @@ public class Server {
     }
 
     public synchronized void sendGeneralMsg(String userName, String text) {
+    	System.out.print("LLegó mensaje general "+userName+"\n");
         this.clients.entrySet().parallelStream().
                 filter( e -> !e.getKey().equals(userName)).
                 forEach( e -> e.getValue().sendGeneralMsg(userName, text));
     }
+
+	public void sendMsg(String userFrom, String userTo, String text) {
+		System.out.print("LLegó mensaje privado "+userFrom +"  "+userTo+"  "+text+"\n");
+		this.clients.entrySet().parallelStream().
+		filter( e -> e.getKey().equals(userTo)).
+		iterator().next().getValue().sendMsg(userFrom, userTo, text);
+	}
 }

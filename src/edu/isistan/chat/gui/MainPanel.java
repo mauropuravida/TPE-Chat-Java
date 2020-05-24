@@ -85,7 +85,7 @@ public class MainPanel extends JPanel {
                 int i = users.getSelectedIndex();
                 if (i==-1) 
                     return;
-                MainWindows.launchOrGet(null).chatWith(users.getModel().getElementAt(i));
+                MainWindows.launchOrGet(null,"").chatWith(users.getModel().getElementAt(i));
             }
         });
         

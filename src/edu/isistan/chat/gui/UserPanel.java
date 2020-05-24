@@ -49,6 +49,7 @@ public class UserPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!sentMsg.getText().trim().equals("")) {
+                	
                     MainWindows.getIChat().sendMsg(UserPanel.this.user, sentMsg.getText());
                     maintxt.setText(maintxt.getText()+"...: "+sentMsg.getText()+"\n");
                     sentMsg.setText("");

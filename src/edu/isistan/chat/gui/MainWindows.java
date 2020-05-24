@@ -3,12 +3,14 @@ package edu.isistan.chat.gui;
 import java.awt.EventQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import edu.isistan.chat.ChatGUI;
 import edu.isistan.chat.IChat;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 public class MainWindows implements ChatGUI {
     private static IChat CHAT;
@@ -19,10 +21,10 @@ public class MainWindows implements ChatGUI {
     private JFrame frame;
     private JTabbedPane tabbedPane;
 
-    public static ChatGUI launchOrGet(IChat model) {
+    public static ChatGUI launchOrGet(IChat model, String name) {
         if(LAUNCH.compareAndSet(false, true)) {
             CHAT = model;
-            COURRENT = new MainWindows();
+            COURRENT = new MainWindows(name);
         }
         return COURRENT;
     }
@@ -36,14 +38,14 @@ public class MainWindows implements ChatGUI {
      * Launch the application.
      */
     public static void main(String[] args) {
-        new MainWindows();
+        new MainWindows(args[0]);
     }
 
     /**
      * Create the application.
      */
-    private MainWindows() {
-        initialize();
+    private MainWindows(String name) {
+        initialize(name);
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -58,9 +60,9 @@ public class MainWindows implements ChatGUI {
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize() {
-        frame = new JFrame("Supa Duppa Chat!!");
-        frame.setBounds(100, 100, 800, 800);
+    private void initialize(String name) {
+        frame = new JFrame("Supa Duppa Chat!!("+name+")");
+        frame.setBounds(100, 100, 400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -78,7 +80,8 @@ public class MainWindows implements ChatGUI {
 
 
     @Override
-    public void addNewMsg(String from, String text) {
+    public void addNewMsg(String from, String to, String text) {
+    	System.out.println("LLEGO MENSAJE DE "+from+"  "+text);
         EventQueue.invokeLater(()->{
             int tab = -1;
             for(int i = 0; i < tabbedPane.getTabCount(); i++)
@@ -130,7 +133,9 @@ public class MainWindows implements ChatGUI {
             for(int i = 0; i < tabbedPane.getTabCount(); i++)
                 if (tabbedPane.getTitleAt(i).equals(user))
                     return;
-            tabbedPane.addTab(user, new UserPanel(user));
+            Component c = new UserPanel(user);
+            tabbedPane.addTab(user, c);
+            tabbedPane.setSelectedComponent(c);
         });
     }
 

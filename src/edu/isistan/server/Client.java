@@ -38,6 +38,11 @@ public class Client implements Runnable {
                     case (Protocol.GENERAL_MSG):
                         String text = dis.readUTF();
                         this.server.sendGeneralMsg(userName, text);
+                        
+                    case (Protocol.PRIVATE_MSG):
+                    	String to = dis.readUTF();
+                		String textP = dis.readUTF();
+                    	this.server.sendMsg(userName, to, textP);
                 }
                 //TODO implementar el resto del protocolo
             }
@@ -72,6 +77,17 @@ public class Client implements Runnable {
         try {
             dos.writeByte(Protocol.GENERAL_MSG);
             dos.writeUTF(userName);
+            dos.writeUTF(text);
+        } catch (IOException e) {
+
+        }
+    }
+    
+    public void sendMsg(String userFrom, String userTo, String text) {
+        try {
+            dos.writeByte(Protocol.PRIVATE_MSG);
+            dos.writeUTF(userFrom);
+            dos.writeUTF(userTo);
             dos.writeUTF(text);
         } catch (IOException e) {
 
