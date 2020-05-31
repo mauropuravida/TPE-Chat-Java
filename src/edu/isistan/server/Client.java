@@ -38,11 +38,13 @@ public class Client implements Runnable {
                     case (Protocol.GENERAL_MSG):
                         String text = dis.readUTF();
                         this.server.sendGeneralMsg(userName, text);
+                        break;
                         
                     case (Protocol.PRIVATE_MSG):
                     	String to = dis.readUTF();
                 		String textP = dis.readUTF();
                     	this.server.sendMsg(userName, to, textP);
+                    	break;
                 }
                 //TODO implementar el resto del protocolo
             }
