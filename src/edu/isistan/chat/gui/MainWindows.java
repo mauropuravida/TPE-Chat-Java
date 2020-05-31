@@ -81,7 +81,6 @@ public class MainWindows implements ChatGUI {
 
     @Override
     public void addNewMsg(String from, String to, String text) {
-    	System.out.println("LLEGO MENSAJE DE "+from+"  "+text);
         EventQueue.invokeLater(()->{
             int tab = -1;
             for(int i = 0; i < tabbedPane.getTabCount(); i++)
@@ -117,15 +116,17 @@ public class MainWindows implements ChatGUI {
                 System.err.println("No se puere remover la ventana Main");
                 return;
             }
-            for(int i = 0; i < tabbedPane.getTabCount(); i++)
-                if (tabbedPane.getTitleAt(i).equals(user)) {
-                    tabbedPane.remove(i);
-                    break;
-                }
-            ((MainPanel)tabbedPane.getComponent(0)).remevoUser(user);
+            removeTab(user);
+            ((MainPanel)tabbedPane.getComponent(0)).removeUser(user);
         });
     }
-
+    public void removeTab(String user) {
+    	for(int i = 0; i < tabbedPane.getTabCount(); i++)
+            if (tabbedPane.getTitleAt(i).equals(user)) {
+                tabbedPane.remove(i);
+                break;
+            }
+    }
 
     @Override
     public void chatWith(String user) {

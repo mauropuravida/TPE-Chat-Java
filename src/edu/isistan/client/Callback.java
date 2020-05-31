@@ -25,7 +25,6 @@ public class Callback implements IChat {
 
 	@Override
 	public void sendMsg(String to, String text) {
-    	System.out.println("MENSAJE REGISTRADO COMO PRIVADO "+to+"   "+text+"\n");
         try {
             dos.writeByte(Protocol.PRIVATE_MSG);
             dos.writeUTF(to);

@@ -123,7 +123,7 @@ public class MainPanel extends JPanel {
             sentMsg.setText("");
         }
     }
-    public void remevoUser(String user) {
+    public void removeUser(String user) {
         listUsers.remove(user);
         users.setListData(listUsers.toArray(new String[listUsers.size()]));
     }
