@@ -61,7 +61,7 @@ public class Server {
                 forEach( e -> e.getValue().sendGeneralMsg(userName, text));
     }
 
-	public void sendMsg(String userFrom, String userTo, String text) {
+	public synchronized void sendMsg(String userFrom, String userTo, String text) {
 		System.out.print("LLegó mensaje privado "+userFrom +"  "+userTo+"  "+text+"\n");
 		this.clients.entrySet().parallelStream().
 		filter( e -> e.getKey().equals(userTo)).
